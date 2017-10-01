@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), CreateNew.class);
                 startActivity(i);
-                Toast.makeText(MainActivity.this, "WHAT THE FUCK", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_LONG).show();
             }
 
         });
