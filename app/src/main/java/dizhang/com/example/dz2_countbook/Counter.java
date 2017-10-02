@@ -71,6 +71,8 @@ public class Counter {
         return date;
     }
 
+//   I didnt have time to implement increment and decrement by 1 and reset to initValue
+    //below shows how they are defined
 
     public void incCurValue(){
         curValue++;
@@ -80,7 +82,6 @@ public class Counter {
         curValue--;
         date = new Date();
     }
-
 
     public void resetToInitValue(){
         this.curValue = this.initValue;
