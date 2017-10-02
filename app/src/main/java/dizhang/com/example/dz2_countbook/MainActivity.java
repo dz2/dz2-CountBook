@@ -152,10 +152,10 @@ public class MainActivity extends AppCompatActivity {
            saveFile();
        }
        else if (requestCode == 2){
-           String name = data.getStringExtra("nameM");
-           Integer initValue = data.getIntExtra("initValueM", 0);
-           Integer curValue = data.getIntExtra("curValueM", 0);
-           String comment = data.getStringExtra("commentM");
+           String name = data.getStringExtra("nameEdited");
+           Integer initValue = data.getIntExtra("initValueEdited", 0);
+           Integer curValue = data.getIntExtra("curValueEdited", 0);
+           String comment = data.getStringExtra("commentEdited");
            Integer position = data.getIntExtra("position", 0);
 
            Counter counter = bookList.get(position);

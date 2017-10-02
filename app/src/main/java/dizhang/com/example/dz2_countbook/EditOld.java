@@ -22,7 +22,7 @@ public class EditOld extends AppCompatActivity {
     private EditText initValueE;
     private EditText commentE;
 
-    Button doenButton;
+    //Button doenButton;
     //private Date dataE;
     //public Integer id;
 
@@ -46,8 +46,8 @@ public class EditOld extends AppCompatActivity {
         //int id = getIntent().getIntExtra("position", 0);
 
         nameE.setText(name, TextView.BufferType.EDITABLE);
-        curValueE.setText(curValue,TextView.BufferType.EDITABLE);
-        initValueE.setText(initValue,TextView.BufferType.EDITABLE);
+        curValueE.setText(curValue.toString(),TextView.BufferType.EDITABLE);
+        initValueE.setText(initValue.toString(),TextView.BufferType.EDITABLE);
         commentE.setText(comment,TextView.BufferType.EDITABLE);
 
 
@@ -66,10 +66,10 @@ public class EditOld extends AppCompatActivity {
 
                 Intent intentE = getIntent();
 
-                intentE.putExtra("nameM", nameM);
-                intentE.putExtra("initValueM", initValueM);
-                intentE.putExtra("commentM", commentM);
-                intentE.putExtra("curValueM", curValueM);
+                intentE.putExtra("nameEdited", nameM);
+                intentE.putExtra("initValueEdited", initValueM);
+                intentE.putExtra("commentEdited", commentM);
+                intentE.putExtra("curValueEdited", curValueM);
 
                 setResult(Activity.RESULT_OK, intentE);
                 //startActivity(i);
