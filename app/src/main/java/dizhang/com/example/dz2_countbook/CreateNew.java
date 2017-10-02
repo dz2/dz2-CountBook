@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -20,13 +23,11 @@ import com.google.gson.Gson;
  * Created by ggranked on 2017-09-30.
  */
 
-public class CreateNew extends Activity {
+public class CreateNew extends AppCompatActivity {
 
-    int id = -1;
-
-    EditText name;
-    EditText initValue;
-    EditText comment;
+    EditText nameN;
+    EditText initValueN;
+    EditText commentN;
     //public Date date;
 
     private static final String FILENAME = "file.sav";
@@ -37,62 +38,31 @@ public class CreateNew extends Activity {
         setContentView(R.layout.activity_create_new);
 
 
-        name = (EditText) findViewById(R.id.nameCre);
-        initValue = (EditText) findViewById(R.id.initCre);
-        comment = (EditText) findViewById(R.id.comCre);
+        nameN = (EditText) findViewById(R.id.nameCre);
+        initValueN = (EditText) findViewById(R.id.initCre);
+        commentN = (EditText) findViewById(R.id.comCre);
 
-        Intent current = getIntent();
-        id = current.getIntExtra("item_position", -1);
+        Button saveButton = (Button) findViewById(R.id.saveCre);
 
-        if (id != 1) {
-            Counter book = (Counter) MainActivity.bookList.get(id);
-            name.setText(book.nameC);
-            initValue.setText(book.initValueC);
-            comment.setText(book.commentC);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nameM = nameN.getText().toString();
+                Integer initValueM = Integer.parseInt(initValueN.getText().toString());
+                String commentM = commentN.getText().toString();
 
-        }
+                Intent i = new Intent();
+                i.putExtra("bookName", nameM);
+                i.putExtra("bookInitValue", initValueM);
+                i.putExtra("bookComment", commentM);
 
-    }
+                setResult(Activity.RESULT_OK, i);
 
-    public void SaveInFile(View v) {
-        if (name.getText().toString().isEmpty()){}
-        else{
+                finish();
 
-            Counter enter = new Counter(name.getText().toString(),
-                    initValue.getText().toString(),
-                    //initValue.getText().toString(),
-                    comment.getText().toString()
-            );
-
-
-        try {
-
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    Context.MODE_PRIVATE);
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            if(id == -1){
-                MainActivity.bookList.add(enter);}
-            else{
-                MainActivity.bookList.set(id,enter);
             }
-
-            gson.toJson(MainActivity.bookList, out);
-
-            out.flush();
+        });
 
 
-            fos.close();
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
     }
-}
 }

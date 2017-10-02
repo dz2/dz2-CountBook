@@ -1,38 +1,86 @@
 package dizhang.com.example.dz2_countbook;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by ggranked on 2017-10-01.
  */
 
 public class Counter {
-    public String nameC;
-    public String initValueC;
-    //public String curValue;
-    public String commentC;
-    //public Date date;
+    public String name;
+    public Integer initValue;
+    public Integer curValue;
+    public String comment;
+    public Date date;
     //public Integer edited;
 
 
-    public Counter (String name, String initValue, String comment) {
-        this.nameC = name;
-        this.initValueC = initValue;
-        //this.curValue = curValue;
-        this.commentC = comment;
-        //this.date = new Date();
-    }
-
-  /*  public Counter (String name, String initValue) {
+    public Counter (String name, Integer initValue, String comment) {
         this.name = name;
         this.initValue = initValue;
+        this.curValue = initValue;
+        this.comment = comment;
         this.date = new Date();
     }
 
-*/
-    public String CountertoString() {
+    public void setNameC(String name){
+        this.name = name;
+        date = new Date();
+    }
+    public String getNameC(){
+        return this.name;
+    }
 
-        return nameC + "\n" + initValueC + "\n" + commentC; // + date.toString() + "\n";
 
+    public void setInitValueC(Integer initValue){
+        this.initValue = initValue;
+        date = new Date();
+    }
+    public Integer getInitValue() {
+        return this.initValue;
+    }
+
+
+    public void setCurValue(Integer Value){
+        this.curValue = Value;
+        date = new Date();
+    }
+    public Integer getCurValue() {
+        return this.curValue;
+    }
+
+    public void setComment(String comment){
+        this.comment= comment;
+        date = new Date();
+    }
+    public String getComment(){
+        return comment;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+
+    public void incCurValue(){
+        curValue++;
+        date = new Date();
+    }
+    public void decCurValue(){
+        curValue--;
+        date = new Date();
+    }
+
+
+    public void resetToInitValue(){
+        this.curValue = this.initValue;
+        date = new Date();
+    }
+
+    public String counterToString(){
+        String dateString = new SimpleDateFormat("yyyy-MM-dd").format(this.date);
+        return( this.name+ "\n" +curValue + " \n"+dateString);
     }
 }
