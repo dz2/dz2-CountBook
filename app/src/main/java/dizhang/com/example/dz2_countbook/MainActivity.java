@@ -38,10 +38,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
 
-    public static ArrayList <Counter> bookList = new ArrayList<Counter>();
+    private static ArrayList <Counter> bookList = new ArrayList<Counter>();
 
     private ListView mainListDis;
 
@@ -67,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
         createNew.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateNew.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+
+                //saveInFile();
+
             }
         });
 
@@ -75,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
         mainListDis.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View v,int position,long id){
-                Intent intent = new Intent(MainActivity.this, CreateNew.class);
+                Intent intent = new Intent(MainActivity.this, EditOld.class);
                 intent.putExtra("item_position",position);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
                 finish();
             }
         });

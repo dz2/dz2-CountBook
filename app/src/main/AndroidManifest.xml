@@ -17,9 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateNew"
-            android:label="dz2-CounterBook"></activity>
+            android:label="dz2-CountBook"></activity>
         <activity android:name=".EditOld"
-            android:label="dz2-CounterBook"></activity>
+            android:label="dz2-CountBook"></activity>
 
     </application>
 

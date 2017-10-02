@@ -26,17 +26,17 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/comDis"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.06"
-        android:text="TextView" />
-
-    <TextView
         android:id="@+id/initDis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06"
+        android:layout_weight="0.08"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/comDis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.55"
         android:text="TextView" />
 
     <LinearLayout
@@ -64,5 +64,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.06"
         android:text="Reset" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06"
+        android:text="Edit" />
 
 </LinearLayout>

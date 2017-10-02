@@ -5,35 +5,41 @@
     android:weightSum="1">
 
     <EditText
-        android:id="@+id/nameCre"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Counterbook Name"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/initCre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Initial Value (non-negative interger)"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/comCre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Comment (optional)"
         android:inputType="textPersonName"
+        android:text="CountBook Name" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Current Value (non-negative integer)" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Initial Value (non-negative integer)" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Comment"
         android:layout_weight="0.51" />
 
     <Button
-        android:id="@+id/saveCre"
+        android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="SaveInFile"
-        android:text="Save" />
-
+        android:text="Done" />
 </LinearLayout>
