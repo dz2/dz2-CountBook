@@ -51,19 +51,26 @@ public class CreateNew extends AppCompatActivity {
                 Integer initValueM = Integer.parseInt(initValueN.getText().toString());
                 String commentM = commentN.getText().toString();
 
-                Intent i = new Intent();
-                i.putExtra("bookName", nameM);
-                i.putExtra("bookInitValue", initValueM);
-                i.putExtra("bookComment", commentM);
+                //Counter counter = new Counter(nameM, initValueM, commentM);
 
+                Intent i = new Intent();
+
+                i.putExtra("nameM", nameM);
+                i.putExtra("initValueM", initValueM);
+                i.putExtra("commentM", commentM);
                 setResult(Activity.RESULT_OK, i);
+                //startActivity(i);
 
                 finish();
+
 
             }
         });
 
 
+
     }
+
+
 }
 

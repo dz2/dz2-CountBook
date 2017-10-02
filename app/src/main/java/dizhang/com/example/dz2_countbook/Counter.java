@@ -8,11 +8,11 @@ import java.text.SimpleDateFormat;
  */
 
 public class Counter {
-    public String name;
-    public Integer initValue;
-    public Integer curValue;
-    public String comment;
-    public Date date;
+    private String name;
+    private Integer initValue;
+    private Integer curValue;
+    private String comment;
+    private Date date;
     //public Integer edited;
 
 
@@ -21,7 +21,15 @@ public class Counter {
         this.initValue = initValue;
         this.curValue = initValue;
         this.comment = comment;
-        this.date = new Date();
+        date = new Date();
+    }
+
+    public Counter (String name, Integer initValue) {
+        this.name = name;
+        this.initValue = initValue;
+        this.curValue = initValue;
+        this.comment = "";
+        date = new Date();
     }
 
     public void setNameC(String name){
@@ -42,8 +50,8 @@ public class Counter {
     }
 
 
-    public void setCurValue(Integer Value){
-        this.curValue = Value;
+    public void setCurValue(Integer value){
+        this.curValue = value;
         date = new Date();
     }
     public Integer getCurValue() {
@@ -59,7 +67,7 @@ public class Counter {
     }
 
 
-    public Date getDate() {
+    public java.util.Date getDate() {
         return date;
     }
 
@@ -81,6 +89,6 @@ public class Counter {
 
     public String counterToString(){
         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(this.date);
-        return( this.name+ "\n" +curValue + " \n"+dateString);
+        return( this.name + "\t" +curValue + "\n"+dateString);
     }
 }

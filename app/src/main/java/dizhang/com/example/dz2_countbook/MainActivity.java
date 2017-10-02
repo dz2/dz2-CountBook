@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.security.PublicKey;
 import java.security.cert.CRLReason;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button createNew;
 
+    //public ArrayList mainList;
+
+
 
 
     @Override
@@ -57,38 +61,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        createNew = (Button) findViewById(R.id.createButton);
+        //registerForContextMenu(mainListDis);
+        adapter = new ArrayAdapter<Counter>(this,
+                R.layout.list_item, bookList);
 
 
         mainListDis = (ListView) findViewById(R.id.counterList);
-        createNew = (Button) findViewById(R.id.createButton);
-        //registerForContextMenu(mainListDis);
+        mainListDis.setAdapter(adapter);
+        //populateLV();
 
-        createNew.setOnClickListener(new View.OnClickListener(){
+        createNew.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateNew.class);
                 startActivityForResult(intent, 1);
 
-                //saveInFile();
 
+                //saveInFile();
             }
         });
-
-
-        mainListDis.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+/*
+        mainListDis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v,int position,long id){
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, EditOld.class);
-                intent.putExtra("item_position",position);
+                intent.putExtra("item_position", position);
                 startActivity(intent);
                 finish();
             }
         });
 
-        mainListDis.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        mainListDis.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id){
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                 bookList.remove(position);
                 adapter.notifyDataSetChanged();
                 //counter = (TextView) findViewById(R.id.count);
@@ -115,56 +120,38 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-        });
-
-
-
-
-
-
-       // setupButton();
-
-        //mainListDis = (ListView) findViewById(R.id.counterList);
-
-
-        /*createButton.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, CreateNew.class);
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }
-        */
+        }); */
     }
 
-   /* public void addNew(View view) {
-        Intent intent = new Intent(this, CreateNew.class);
-        startActivity(intent);
-        finish();
-    }
 
-   private void setupButton() {
-       bookList = new ArrayList<Counter>();
-       bookList.add(new Counter("Test", "1", "yes"));
 
-        Button myButton = (Button) findViewById(R.id.createButton);
-        myButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), CreateNew.class);
-                startActivity(i);
-                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_LONG).show();
-            }
+   protected void onActivityResult(int resultCode, Intent data){
+       if (resultCode == Activity.RESULT_OK){
+           String name = data.getStringExtra("nameM");
+           Integer value = data.getIntExtra("valueM", 0);
+           String comment = data.getStringExtra("commentM");
 
-        });
-    }*/
-   public void addNew(View view){
-       Intent i = new Intent(this, CreateNew.class);
-       startActivity(i);
-       finish();
+           Counter counter = new Counter (name, value, comment);
+           bookList.add(counter);
+           adapter.notifyDataSetChanged();
+           saveFile();
+       }
+
    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LoadFromFile();
+
+        //adapter = new ArrayAdapter<Counter>(this,
+        //      R.layout.list_item, bookList);
 
 
+        adapter = new ArrayAdapter<Counter>(this, R.layout.list_item, bookList);
+
+
+        mainListDis.setAdapter(adapter);
+    }
 
 
     private void LoadFromFile(){
@@ -173,24 +160,37 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
 
-            bookList = gson.fromJson(in, new TypeToken<ArrayList<Counter>>(){}.getType());
+            bookList = gson.fromJson(in, listType);
 
-            fis.close();
+            //fis.close();
 
         } catch (FileNotFoundException e) {
-//            sizeList = new ArrayList<Size>();
+            bookList = new ArrayList<Counter>();
         } catch (IOException e) {
             throw new RuntimeException();
         }
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        bookList = new ArrayList<Counter>();
-        LoadFromFile();
 
-        mainListDis.setAdapter(adapter);
+    private void saveFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(bookList, writer);
+            writer.flush();
+            //fos.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+
     }
 
 }
