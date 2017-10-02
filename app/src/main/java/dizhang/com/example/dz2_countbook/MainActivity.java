@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 
 
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private static ArrayList <Counter> bookList = new ArrayList<Counter>();
 
     private ListView mainListDis;
+
+    private ArrayList textList;
 
     private ArrayAdapter<Counter> adapter;
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 //saveInFile();
             }
         });
-/*
+
         mainListDis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -95,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                 bookList.remove(position);
+                textList.remove(position);
                 adapter.notifyDataSetChanged();
-                //counter = (TextView) findViewById(R.id.count);
-                //counter.setText("number of entries : "+sizeList.size());
+
                 try {
                     FileOutputStream fos = openFileOutput(FILENAME,
                             Context.MODE_PRIVATE);
@@ -120,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-        }); */
+        });
     }
 
 
 
-   protected void onActivityResult(int resultCode, Intent data){
+  /* protected void onActivityResult(int requestCode, int resultCode, Intent data){
        if (resultCode == Activity.RESULT_OK){
            String name = data.getStringExtra("nameM");
            Integer value = data.getIntExtra("valueM", 0);
@@ -137,19 +140,36 @@ public class MainActivity extends AppCompatActivity {
            saveFile();
        }
 
-   }
+   }*/
     @Override
     protected void onStart() {
         super.onStart();
+
+        String name = getIntent().getStringExtra("nameM");
+        Integer value = getIntent().getIntExtra("valueM", 0);
+        String comment = getIntent().getStringExtra("commentM");
+
+        if (name==null){}
+        else{
+        Counter counter = new Counter (name, value, comment);
+        bookList.add(counter);
+        adapter.notifyDataSetChanged();
+        saveFile();}
+
+
         LoadFromFile();
 
         //adapter = new ArrayAdapter<Counter>(this,
         //      R.layout.list_item, bookList);
+        textList = new ArrayList<String>();
+
+        for (int i = 0; i < bookList.size(); i ++) {
+            Counter c = (Counter) bookList.get(i);
+            textList.add(c.counterToString());
+        }
 
 
-        adapter = new ArrayAdapter<Counter>(this, R.layout.list_item, bookList);
-
-
+        adapter = new ArrayAdapter<Counter>(this, R.layout.list_item, textList);
         mainListDis.setAdapter(adapter);
     }
 

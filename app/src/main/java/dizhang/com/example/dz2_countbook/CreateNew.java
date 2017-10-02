@@ -30,7 +30,7 @@ public class CreateNew extends AppCompatActivity {
     EditText commentN;
     //public Date date;
 
-    private static final String FILENAME = "file.sav";
+    //private static final String FILENAME = "file.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,13 @@ public class CreateNew extends AppCompatActivity {
 
                 //Counter counter = new Counter(nameM, initValueM, commentM);
 
-                Intent i = new Intent();
+                Intent i = new Intent(CreateNew.this, MainActivity.class);
 
                 i.putExtra("nameM", nameM);
                 i.putExtra("initValueM", initValueM);
                 i.putExtra("commentM", commentM);
                 setResult(Activity.RESULT_OK, i);
-                //startActivity(i);
+                startActivity(i);
 
                 finish();
 

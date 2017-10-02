@@ -89,6 +89,6 @@ public class Counter {
 
     public String counterToString(){
         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(this.date);
-        return( this.name + "\t" +curValue + "\n"+dateString);
+        return( "Name:  " + this.name + "\nCurrent Count:  " +curValue + "\n"+dateString);
     }
 }

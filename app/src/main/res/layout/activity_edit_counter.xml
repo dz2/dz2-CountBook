@@ -9,36 +9,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="CountBook Name" />
+        android:hint="CountBook Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Current Value (non-negative integer)" />
+        android:hint="Current Value (non-negative integer)"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Initial Value (non-negative integer)" />
+        android:hint="Initial Value (non-negative integer)"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.51"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Comment"
-        android:layout_weight="0.51" />
+        android:hint="Comment"
+        android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/doneEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Done" />
