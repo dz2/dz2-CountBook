@@ -24,11 +24,11 @@ public class Counter {
         date = new Date();
     }
 
-    public Counter (String name, Integer initValue) {
+    public Counter (String name, Integer initValue, Integer curValue, String comment) {
         this.name = name;
         this.initValue = initValue;
-        this.curValue = initValue;
-        this.comment = "";
+        this.curValue = curValue;
+        this.comment = comment;
         date = new Date();
     }
 
@@ -89,6 +89,6 @@ public class Counter {
 
     public String counterToString(){
         String dateString = new SimpleDateFormat("yyyy-MM-dd").format(this.date);
-        return( "Name:  " + this.name + "\nCurrent Count:  " +curValue + "\n"+dateString);
+        return( "Name:  " + this.name + "\nCurrent Count:  " + curValue + "\n"+dateString);
     }
 }

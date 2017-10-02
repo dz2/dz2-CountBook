@@ -18,6 +18,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
 
-    private static ArrayList <Counter> bookList = new ArrayList<Counter>();
+    public ArrayList <Counter> bookList = new ArrayList<Counter>();
 
     private ListView mainListDis;
 
@@ -87,10 +88,21 @@ public class MainActivity extends AppCompatActivity {
         mainListDis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, EditOld.class);
-                intent.putExtra("item_position", position);
-                startActivity(intent);
-                finish();
+                Counter counter =  bookList.get(position);
+                String name = counter.getNameC();
+                Integer initValue = counter.getInitValue();
+                Integer curValue = counter.getCurValue();
+                String comment = counter.getComment();
+
+
+                Intent intentLv = new Intent(MainActivity.this, EditOld.class);
+                intentLv.putExtra("nameM", name);
+                intentLv.putExtra("initValueM", initValue);
+                intentLv.putExtra("curValueM", curValue);
+                intentLv.putExtra("commentM", comment);
+                //intentLv.putExtra("position", position);
+                startActivityForResult(intentLv, 2);
+                //finish();
             }
         });
 
@@ -108,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Gson gson = new Gson();
 
-                    gson.toJson(MainActivity.bookList, out);
+                    gson.toJson(bookList, out);
 
                     out.flush();
 
@@ -128,10 +140,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-  /* protected void onActivityResult(int requestCode, int resultCode, Intent data){
-       if (resultCode == Activity.RESULT_OK){
+   protected void onActivityResult(int requestCode, int resultCode, Intent data){
+       if (requestCode == 1){
            String name = data.getStringExtra("nameM");
-           Integer value = data.getIntExtra("valueM", 0);
+           Integer value = data.getIntExtra("initValueM", 0);
            String comment = data.getStringExtra("commentM");
 
            Counter counter = new Counter (name, value, comment);
@@ -139,13 +151,30 @@ public class MainActivity extends AppCompatActivity {
            adapter.notifyDataSetChanged();
            saveFile();
        }
+       else if (requestCode == 2){
+           String name = data.getStringExtra("nameM");
+           Integer initValue = data.getIntExtra("initValueM", 0);
+           Integer curValue = data.getIntExtra("curValueM", 0);
+           String comment = data.getStringExtra("commentM");
+           Integer position = data.getIntExtra("position", 0);
 
-   }*/
+           Counter counter = bookList.get(position);
+           counter.setNameC(name);
+           counter.setCurValue(curValue);
+           counter.setInitValueC(initValue);
+           counter.setComment(comment);
+
+           adapter.notifyDataSetChanged();
+           saveFile();
+
+       }
+
+   }
     @Override
     protected void onStart() {
         super.onStart();
 
-        String name = getIntent().getStringExtra("nameM");
+       /* String name = getIntent().getStringExtra("nameM");
         Integer value = getIntent().getIntExtra("valueM", 0);
         String comment = getIntent().getStringExtra("commentM");
 
@@ -155,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         bookList.add(counter);
         adapter.notifyDataSetChanged();
         saveFile();}
+        */
 
 
         LoadFromFile();

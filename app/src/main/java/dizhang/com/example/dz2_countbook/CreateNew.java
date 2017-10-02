@@ -53,13 +53,14 @@ public class CreateNew extends AppCompatActivity {
 
                 //Counter counter = new Counter(nameM, initValueM, commentM);
 
-                Intent i = new Intent(CreateNew.this, MainActivity.class);
+                Intent i = getIntent();
+                //Intent i = getIntent();
 
                 i.putExtra("nameM", nameM);
                 i.putExtra("initValueM", initValueM);
                 i.putExtra("commentM", commentM);
                 setResult(Activity.RESULT_OK, i);
-                startActivity(i);
+                //startActivity(i);
 
                 finish();
 

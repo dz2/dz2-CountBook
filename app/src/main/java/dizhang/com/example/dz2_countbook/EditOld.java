@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Date;
 
@@ -20,8 +21,10 @@ public class EditOld extends AppCompatActivity {
     private EditText curValueE;
     private EditText initValueE;
     private EditText commentE;
-    private Date dataE;
-    public Integer id;
+
+    Button doenButton;
+    //private Date dataE;
+    //public Integer id;
 
 
     @Override
@@ -30,24 +33,46 @@ public class EditOld extends AppCompatActivity {
         setContentView(R.layout.activity_edit_counter);
 
         Button doneButton = (Button) findViewById(R.id.doneEdit);
-        int id = getIntent().getIntExtra("position", 0);
+        nameE = (EditText) findViewById((R.id.nameE));
+        curValueE = (EditText) findViewById((R.id.curValueE));
+        initValueE = (EditText) findViewById((R.id.initValueE));
+        commentE = (EditText) findViewById((R.id.commentE));
+
+        Intent i = getIntent();
+        String name = i.getStringExtra("nameM");
+        Integer initValue = i.getIntExtra("initValueM", 0);
+        Integer curValue = i.getIntExtra("curValueM", 0);
+        String comment = i.getStringExtra("commentM");
+        //int id = getIntent().getIntExtra("position", 0);
+
+        nameE.setText(name, TextView.BufferType.EDITABLE);
+        curValueE.setText(curValue,TextView.BufferType.EDITABLE);
+        initValueE.setText(initValue,TextView.BufferType.EDITABLE);
+        commentE.setText(comment,TextView.BufferType.EDITABLE);
+
+
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nameM = nameE.getText().toString();
+                Integer curValueM = Integer.parseInt(curValueE.getText().toString());
                 Integer initValueM = Integer.parseInt(initValueE.getText().toString());
                 String commentM = commentE.getText().toString();
 
+
+
                 //Counter counter = new Counter(nameM, initValueM, commentM);
 
-                Intent i = new Intent(EditOld.this, MainActivity.class);
+                Intent intentE = getIntent();
 
-                i.putExtra("nameM", nameM);
-                i.putExtra("initValueM", initValueM);
-                i.putExtra("commentM", commentM);
-                setResult(Activity.RESULT_OK, i);
-                startActivity(i);
+                intentE.putExtra("nameM", nameM);
+                intentE.putExtra("initValueM", initValueM);
+                intentE.putExtra("commentM", commentM);
+                intentE.putExtra("curValueM", curValueM);
+
+                setResult(Activity.RESULT_OK, intentE);
+                //startActivity(i);
 
                 finish();
 
